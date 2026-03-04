@@ -37,7 +37,7 @@ def chatbot(state: State):
     """)
 
     message = llm_with_tool.invoke([system_prompt] + state["messages"])
-    assert len(message.tool_calls) <= 1
+    # assert len(message.tool_calls) <= 1 --removed the tool call check to allow multiple tool calls in a single message
     return {"messages": [message]}
 
 tool_node = ToolNode(tools=[exec_command])
