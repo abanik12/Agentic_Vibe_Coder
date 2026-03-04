@@ -1,7 +1,13 @@
 
-# Agentic Vibe Coder - Intro
-This Agentic App takes commands in natural language(for vibe coding) from user using voice, executes the actual command using Agentic graph based workflow and responds back to the user in voice
----
+# Vibe Coder
+
+Vibe Coder is an AI-powered coding assistant that takes user input, selects the appropriate tools, executes commands, and provides the output. It is designed to assist developers by automating repetitive tasks and generating code snippets.
+
+## Features
+- Executes shell commands and returns the output.
+- Supports multiple tool calls in a single message.
+- Stores generated files in the `chat_llm/` folder.
+
 Sample Input can be :
 * Create a file abc
 * Create a folder
@@ -14,6 +20,21 @@ pip install pyaudio
 Please note for anyone using windows :
 pip install pipwin
 pipwin install pyaudio
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/vibe_coder.git
+   cd vibe_coder
+
+2. Create a virtual env
+python -m venv venv
+source venv/bin/activate  # On macOS/Linux
+venv\Scripts\activate     # On Windows   
+
+3. Install dependencies
+pip install -r requirements.txt
 
 
 

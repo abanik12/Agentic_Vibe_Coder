@@ -20,13 +20,25 @@ def exec_command(cmd: str):
     returns the output of the command.
     Example: run_command(cmd="mkdir folder_name") where mkdir creates a directory/folder under the current working directory with name as folder_name.
     """
-    result = os.system(command=cmd)
+    try:
+        result = os.system(command=cmd)
+    except Exception as e:
+        return {"error": f"Failed to execute command: {str(e)}"}    
     return result
 
 llm = init_chat_model(model_provider="openai", model="gpt-4.1-mini", max_tokens=2048)
 llm_with_tool = llm.bind_tools(tools=[exec_command])
 
+
 def chatbot(state: State):
+    """
+    A chatbot function that takes user input, selects the correct tool based on the available tools,
+    executes commands, and returns the output.
+
+    - Ensures generated files are stored in the `chat_llm/` folder.
+    - Allows multiple tool calls in a single message.
+    """
+
     system_prompt = SystemMessage(content="""
         You are a helpful AI Coding assistant aka Vibe Coder who takes an input from user and based on available
         tools you choose the correct tool and execute the commands.
@@ -39,6 +51,7 @@ def chatbot(state: State):
     message = llm_with_tool.invoke([system_prompt] + state["messages"])
     # assert len(message.tool_calls) <= 1 --removed the tool call check to allow multiple tool calls in a single message
     return {"messages": [message]}
+
 
 tool_node = ToolNode(tools=[exec_command])
 
